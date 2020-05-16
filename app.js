@@ -3,10 +3,15 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
+//Rotas principais usadas 
 const rotaProdutos = require('./routes/produtos');
 const rotaPedidos = require('./routes/pedidos');
+const rotaUsuarios = require('./routes/usuarios');
+
+
 
 app.use(morgan('dev'));
+app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false })); //Apenas dados simples 
 app.use(bodyParser.json());//Json de entrada no body
 
@@ -25,6 +30,9 @@ app.use((req, res, next) => {
 
 app.use('/produtos', rotaProdutos);
 app.use('/pedidos', rotaPedidos);
+app.use('/usuarios', rotaUsuarios);
+
+
 
 //Quando não encontra entra neste código
 app.use((req, res, next) => {
